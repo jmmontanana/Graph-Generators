@@ -18,7 +18,7 @@ is needed in order to develop a detection algorithm.
 
 ## Compilation Instructions
 
-Then compile with gcc as:
+Then compile with gcc as appear in the "compilation-script.sh":
 
   ```bash
   gcc -o duo duo.c write_r.c grafos.c tamano_com.c -lm -Wall;
