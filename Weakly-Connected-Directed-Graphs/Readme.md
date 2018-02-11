@@ -54,11 +54,11 @@ Examples of generation of graphs from the command line:
 
 ## Acknowledgment 
 
-    This work has been financed by the Project "Complex Networks" from the IUMM of the U.P.V.
+This work has been financed by the Project "Complex Networks" from the IUMM of the U.P.V.
 
 ## Contributing
-    Find a bug? Have a feature request?
-    Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue.
+Find a bug? Have a feature request?
+Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue.
 
 ## Main Contributors
 
