@@ -2,21 +2,18 @@
 This project contains a Graph Generator for Benchmarking Algorithms of Detection of Communities
 
 ## Motivation 
-
 The existing community detection algorithms have difficulties to detect the communities in graphs like the SED-graph [[1]](#ref1).
 Thus, we consider that a benchmarking graph generator with the properties of the SED-graph 
 is needed in order to develop a detection algorithm. 
 
 ## Prerequisites
-
-  Before you can proceed, please clone the repository:
+Before you can proceed, please clone the repository:
 
   ```bash
   git clone git://github.com/jmmontanana/Graph-Generators.git
   ```
 
 ## Compilation Instructions
-
 Then compile with gcc as appear in the "compilation-script.sh":
 
   ```bash
@@ -25,19 +22,16 @@ Then compile with gcc as appear in the "compilation-script.sh":
   ```
  
 ### Dependencies
+This project has been tested with Linux Ubuntu 16.04 and Ubuntu 17.10  and the following installed packages:
 
-    This project has been tested with Linux Ubuntu 16.04 and Ubuntu 17.10  and the following installed packages:
-
-    | Component        | Homepage                 | Version   |
-    |----------------- |------------------------  |---------  |
-    | gcc              | https://gcc.gnu.org      | 5.4.0     | 
+| Component        | Homepage                 | Version   |
+|----------------- |------------------------  |---------  |
+| gcc              | https://gcc.gnu.org      | 5.4.0     | 
  
 # Example of generation of Synthetic Graphs:
-
 Examples of generation of graphs from the command line:
 
 ### with the DUO generator
-
 ```bash 
 	for i in 100 101 102 103 104 105; do #different seeds
 		./duo -c 30 -n 0 -s $i > /dev/null; 
@@ -52,7 +46,6 @@ Examples of generation of graphs from the command line:
 ``` 
 
 ## Acknowledgment 
-
 This work has been financed by the Project "Complex Networks" from the IUMM of the U.P.V.
 
 ## Contributing
@@ -60,7 +53,6 @@ Find a bug? Have a feature request?
 Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue.
 
 ## Main Contributors
-
 **Montañana, José Miguel HLRS**
 + [github/jmmontanana](https://github.com/jmmontanana)
 
@@ -69,7 +61,6 @@ Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue
 **Soriano, Pedro Pablo, UPV**
 
 ## License
-
 The description of the algorithms is in the process of revision before being published.
 The authors kindly request that publication be referenced by those who use this generator.
 We will give details of the publication as soon as it is accepted
@@ -79,7 +70,6 @@ Copyright (C) 2018 J.M. Montañana
 [Apache License v2](LICENSE).
 
 ## Release History
-
 | Date        | Version | Comment          |
 | ----------- | ------- | ---------------- |
 | 2018-02-02  | 1.0     | First public functional version | 
