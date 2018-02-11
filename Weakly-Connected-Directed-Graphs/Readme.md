@@ -4,7 +4,7 @@
 
 ## Motivation 
 
-    The existing community detection algorithms have difficulties to detect the communities in graphs like the SED-graph <a name="ref1">[1]</a>.
+    The existing community detection algorithms have difficulties to detect the communities in graphs like the SED-graph [[1]](#ref1).
     Thus, we consider that a benchmarking graph generator with the properties of the SED-graph 
     	is needed in order to develop a detection algorithm. 
 
@@ -87,7 +87,7 @@
 
 ## References
 
-  [1](#ref)1. A. Hervas, P. P. Soriano, A. Jimenez, J. Peinado, R. Capilla, J. M. Montañana, 
+  <a name="ref1"></a>1. A. Hervas, P. P. Soriano, A. Jimenez, J. Peinado, R. Capilla, J. M. Montañana, 
   Modeling Human Behavior: Individuals and Organizations, Nova Science Publishers, Inc., New York, 2017, Ch. 
   Applying a graph model for the Spanish public university system, pp. 9–24.
 
