@@ -1,5 +1,4 @@
 # Weakly-Connected-Directed-Graphs
-
 This project contains a Graph Generator for Benchmarking Algorithms of Detection of Communities
 
 ## Motivation 
@@ -86,9 +85,6 @@ Copyright (C) 2018 J.M. Montañana
 | 2018-02-02  | 1.0     | First public functional version | 
 
 ## References
-
   <a name="ref1"></a>1. A. Hervas, P. P. Soriano, A. Jimenez, J. Peinado, R. Capilla, J. M. Montañana, 
   Modeling Human Behavior: Individuals and Organizations, Nova Science Publishers, Inc., New York, 2017, Ch. 
   Applying a graph model for the Spanish public university system, pp. 9–24.
-
- 
