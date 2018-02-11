@@ -35,16 +35,16 @@ Then compile with gcc as appear in the "compilation-script.sh":
  
 # Example of generation of Synthetic Graphs:
 
-    Below appear examples of generation of graphs from the command line:
+Examples of generation of graphs from the command line:
 
-## with the DUO generator
+### with the DUO generator
 
 ```bash 
 	for i in 100 101 102 103 104 105; do #different seeds
 		./duo -c 30 -n 0 -s $i > /dev/null; 
 	done;
 ```
-## with the DBO generator
+### with the DBO generator
 
 ```bash
 	for i in 100 101 102 103 104 105; do #different seeds
