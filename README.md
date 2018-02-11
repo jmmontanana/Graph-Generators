@@ -1,28 +1,25 @@
 # Graph-Generators
-This project contains different Graph Generators for Benchmarking Algorithms of Detection of Communities
+   This project contains different Graph Generators for Benchmarking Algorithms of Detection of Communities
  
 # List of Generators
 
-* Weacked Directed Graphs Generator V1.0
+   * Weakly-Connected-Directed-Graphs Generator V1.0
   
-
-
 ## Contributing
-Find a bug? Have a feature request?
-Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue.
-
+   Find a bug? Have a feature request?
+   Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue.
 
 ## Main Contributors
 
-**Montañana, José Miguel HLRS**
-+ [github/jmmontanana](https://github.com/jmmontanana)
+   **Montañana, José Miguel HLRS**
+   + [github/jmmontanana](https://github.com/jmmontanana)
 
-**Hervas, Antonio, UPV**
+   **Hervas, Antonio, UPV**
 
-**Soriano, Pedro Pablo, UPV**
-
+   **Soriano, Pedro Pablo, UPV**
 
 ## License
-Copyright (C) 2018 J.M. Montañana
 
-[Apache License v2](LICENSE).
+   Copyright (C) 2018 J.M. Montañana
+
+   [Apache License v2](LICENSE).
