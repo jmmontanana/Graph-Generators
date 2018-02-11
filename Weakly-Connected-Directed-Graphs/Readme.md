@@ -1,12 +1,12 @@
 # Weakly-Connected-Directed-Graphs
 
-    This project contains a Graph Generator for Benchmarking Algorithms of Detection of Communities
+This project contains a Graph Generator for Benchmarking Algorithms of Detection of Communities
 
 ## Motivation 
 
-    The existing community detection algorithms have difficulties to detect the communities in graphs like the SED-graph [[1]](#ref1).
-    Thus, we consider that a benchmarking graph generator with the properties of the SED-graph 
-    	is needed in order to develop a detection algorithm. 
+The existing community detection algorithms have difficulties to detect the communities in graphs like the SED-graph [[1]](#ref1).
+Thus, we consider that a benchmarking graph generator with the properties of the SED-graph 
+is needed in order to develop a detection algorithm. 
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@
 
 ## Compilation Instructions
 
-  Then compile with gcc as:
+Then compile with gcc as:
 
   ```bash
   gcc -o duo duo.c write_r.c grafos.c tamano_com.c -lm -Wall;
