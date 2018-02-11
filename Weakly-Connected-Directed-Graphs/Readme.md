@@ -62,12 +62,12 @@ Then compile with gcc as appear in the "compilation-script.sh":
 
 ## Main Contributors
 
-    **Montañana, José Miguel HLRS**
-    + [github/jmmontanana](https://github.com/jmmontanana)
+**Montañana, José Miguel HLRS**
++ [github/jmmontanana](https://github.com/jmmontanana)
 
-    **Hervas, Antonio, UPV**
+**Hervas, Antonio, UPV**
 
-    **Soriano, Pedro Pablo, UPV**
+**Soriano, Pedro Pablo, UPV**
 
 ## License
 
