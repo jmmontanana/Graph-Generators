@@ -14,7 +14,7 @@ Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue
 
 ## Main Contributors
 
-**Montanana, José Miguel HLRS**
+**Montañana, José Miguel HLRS**
 + [github/jmmontanana](https://github.com/jmmontanana)
 
 **Hervas, Antonio, UPV**
