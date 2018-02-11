@@ -71,13 +71,13 @@ Then compile with gcc as appear in the "compilation-script.sh":
 
 ## License
 
-    The description of the algorithms is in the process of revision before being published.
-    The authors kindly request that publication be referenced by those who use this generator.
-    We will give details of the publication as soon as it is accepted
+The description of the algorithms is in the process of revision before being published.
+The authors kindly request that publication be referenced by those who use this generator.
+We will give details of the publication as soon as it is accepted
 
-    Copyright (C) 2018 J.M. Montañana
+Copyright (C) 2018 J.M. Montañana
 
-    [Apache License v2](LICENSE).
+[Apache License v2](LICENSE).
 
 ## Release History
 
