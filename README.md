@@ -3,12 +3,8 @@ This project contains different Graph Generators for Benchmarking Algorithms of 
  
 # List of Generators
 
- 
-## Acknowledgment
-
-This project is realized through [EXCESS][excess]. EXCESS is funded by the EU 7th
-Framework Programme (FP7/2013-2016) under grant agreement number 611183. We are
-also collaborating with the European project [DreamCloud][dreamcloud].
+## Weacked Directed Graphs Generator V1.0
+  
 
 
 ## Contributing
@@ -24,12 +20,6 @@ Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue
 **Hervas, Antonio, UPV**
 
 **Soriano, Pedro Pablo, UPV**
-
-## Release History
-
-| Date        | Version | Comment          |
-| ----------- | ------- | ---------------- |
-| 2018-02-xx  | 1.0     | New authentication and documentation | 
 
 
 ## License
