@@ -4,8 +4,9 @@
 
 ## Motivation 
 
-    The existing community detection algorithms have difficulties to detect the communities in graphs like the SED-graph.
-    Thus, we consider that a benchmarking graph generator with the properties of the SED-graph is needed in order to develop a detection algorithm. 
+    The existing community detection algorithms have difficulties to detect the communities in graphs like the SED-graph <a name="ref1">[1]</a>.
+    Thus, we consider that a benchmarking graph generator with the properties of the SED-graph 
+    	is needed in order to develop a detection algorithm. 
 
 ## Prerequisites
 
@@ -41,7 +42,7 @@
 ```bash 
 	for i in 100 101 102 103 104 105; do #different seeds
 		./duo -c 30 -n 0 -s $i > /dev/null; 
-done;
+	done;
 ```
 ## with the DBO generator
 
@@ -86,7 +87,7 @@ done;
 
 ## References
 
-  1. A. Hervas, P. P. Soriano, A. Jimenez, J. Peinado, R. Capilla, J. M. Montañana, 
+  [1](#ref)1. A. Hervas, P. P. Soriano, A. Jimenez, J. Peinado, R. Capilla, J. M. Montañana, 
   Modeling Human Behavior: Individuals and Organizations, Nova Science Publishers, Inc., New York, 2017, Ch. 
   Applying a graph model for the Spanish public university system, pp. 9–24.
 
