@@ -3,7 +3,7 @@ This project contains different Graph Generators for Benchmarking Algorithms of 
  
 # List of Generators
 
-## Weacked Directed Graphs Generator V1.0
+* Weacked Directed Graphs Generator V1.0
   
 
 
