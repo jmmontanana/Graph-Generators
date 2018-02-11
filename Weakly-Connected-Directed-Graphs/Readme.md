@@ -53,7 +53,7 @@ Find a bug? Have a feature request?
 Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue.
 
 ## Main Contributors
-**Montañana, José Miguel HLRS**
+**Montañana, José Miguel, HLRS**
 + [github/jmmontanana](https://github.com/jmmontanana)
 
 **Hervas, Antonio, UPV**
@@ -63,7 +63,7 @@ Please [create](https://github.com/jmmontanana/Graph-Generators/issues) an issue
 ## License
 The description of the algorithms is in the process of revision before being published.
 The authors kindly request that publication be referenced by those who use this generator.
-We will give details of the publication as soon as it is accepted
+We will give details of the publication as soon as it is accepted.
 
 Copyright (C) 2018 J.M. Montañana
 
