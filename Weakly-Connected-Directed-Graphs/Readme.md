@@ -37,7 +37,7 @@ Then compile with gcc as:
 
     Below appear examples of generation of graphs from the command line:
 
-## with the DUO  Generator
+## with the DUO generator
 
 ```bash 
 	for i in 100 101 102 103 104 105; do #different seeds
@@ -83,7 +83,7 @@ Then compile with gcc as:
 
 | Date        | Version | Comment          |
 | ----------- | ------- | ---------------- |
-| 2018-02-02  | 1.0     | New authentication and documentation | 
+| 2018-02-02  | 1.0     | First public functional version | 
 
 ## References
 
