@@ -29,6 +29,27 @@ This project has been tested with Linux Ubuntu 16.04 and Ubuntu 17.10  and the f
 | gcc              | https://gcc.gnu.org      | 5.4.0     | 
  
 # Example of generation of Synthetic Graphs:
+
+### Usage
+
+```
+  Usage: dbo [options] 
+  
+  Options:
+ 
+ -n number_of_vertices(nodes) 
+ -c number_of_communities 
+ -s value_of_rand_seed
+
+   number_of_vertices = 0, implies that size of the communities based on the ratio of the SED-graph
+   number_of_vertices > 0, implies that all the communia fixed size for all the communities.
+
+ The use of anyone of the parameters is optional, it is used the default value when they are not provided
+
+ The default values are:
+   number_of_vertices = 0, number_of_communities = 8, seed = 100
+```
+
 Examples of generation of graphs from the command line:
 
 ### with the DUO generator
