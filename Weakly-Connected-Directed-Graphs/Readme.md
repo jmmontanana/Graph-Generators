@@ -40,6 +40,7 @@ This project has been tested with Linux Ubuntu 16.04 and Ubuntu 17.10  and the f
  -n number_of_vertices(nodes) 
  -c number_of_communities 
  -s value_of_rand_seed
+ -h Shows this usage information
 
    number_of_vertices = 0, implies that size of the communities based on the ratio of the SED-graph
    number_of_vertices > 0, implies that all the communia fixed size for all the communities.
