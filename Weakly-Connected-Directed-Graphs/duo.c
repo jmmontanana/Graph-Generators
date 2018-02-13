@@ -7,8 +7,8 @@
 #include "grafos.h"
 #include "write_r.h"
 #include "tamano_com.h"
-char method[]="duol";
-char folder_name[]="data_duol";
+char method[]="duo";
+char folder_name[]="data_duo";
 
 //#include <config.h>
 #include <math.h>
@@ -109,11 +109,15 @@ int main(int argc, char *argv[]) // argv[i] from i = 0; to i<argcv;
 					printf("error parametro semilla sin valor asignado\n");exit(1);
 				}
 			} else if(strcmp(argv[i],"-h")==0){ 
-				printf(" uso de la funcion:\n %s -n number_of_vertices(nodes) -c number_of_communities -s value_of_rand_seed\n",argv[0]);
-				printf(" el uso de cualquiera de los parametros es opcional, los valores por defecto son:\n");
-				printf(" number_of_vertices = 0 , number_of_communities = 8, seed = 100\n");
-				printf("    number of vertices = 0 implica una seleccion aleatoria del tamaño de cada comunidad");
-				printf("    number of vertices > 0 asigna ese valor como tamaño para todas las comunidades ");
+                                printf(" Usage: duo [options]\n\n Options:\n");
+                                printf("   -n number_of_vertices(nodes)\n   -c number_of_communities\n   -s value_of_rand_seed\n");
+                                printf("   -h Shows this usage information\n\n");
+                                printf("   number_of_vertices = 0, implies that size of the communities based on the ratio of the SED-graph\n");
+                                printf("   number_of_vertices > 0, implies that all the communia fixed size for all the communities.\n\n");
+
+                                printf(" The use of anyone of the parameters is optional, it is used the default value when they are not provided\n\n");
+                                printf(" The default values are:\n");
+                                printf("   number_of_vertices = 0, number_of_communities = 8, seed = 100\n");
 				exit(1); 
 			}
 		}

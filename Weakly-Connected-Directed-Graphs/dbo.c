@@ -9,8 +9,8 @@
 #include "write_r.h"
 #include "tamano_com.h"
 
-char method[]="dbol";
-char folder_name[]="data_dbol";
+char method[]="dbo";
+char folder_name[]="data_dbo";
 
 //node es un valor entre 0 y num_nodes-1
 const unsigned int max_num_links = 20;
@@ -91,10 +91,10 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 		if(argv[i][0]=='-'){
 			if(strcmp(argv[i],"-n")==0){ 
 				if(argc>i){ 
-					printf("parametro nodos es '%s'\n",argv[i+1]);
+					printf("parameter vertices is: '%s'\n",argv[i+1]);
 					num_nodes=atoi(argv[i+1]);
 				}else{
-					printf("error parametro de numero de nodos sin valor asignado\n");exit(1);
+					printf("error: missing value for the number of vertices.\n");exit(1);
 				}
 			//} else if(strcmp(argv[i],"-l")==0){
 			//	if(argc>i){					
@@ -104,24 +104,29 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 			//	}
 			} else if(strcmp(argv[i],"-c")==0){
 				if(argc>i){
-					printf("parametro comunidades es '%s'\n",argv[i+1]);
+					printf("parameter number of communities is: '%s'\n",argv[i+1]);
 					num_communities=atoi(argv[i+1]);
 				}else{
-					printf("error parametro de comunidades sin valor asignado\n");exit(1);
+					printf("error: missing value for the number communities.\n");exit(1);
 				}
 			} else if(strcmp(argv[i],"-s")==0){
 				if(argc>i){
-					printf("parametro semilla es '%s'\n",argv[i+1]);
+					printf("parametro seed is: '%s'\n",argv[i+1]);
 					myseed=atoi(argv[i+1]);
 				}else{
-					printf("error parametro semilla sin valor asignado\n");exit(1);
+					printf("error: missing value for the seed.\n");exit(1);
 				}
 			} else if(strcmp(argv[i],"-h")==0){ 
-				printf(" uso de la funcion:\n %s -n number_of_vertices(nodes) -c number_of_communities -s value_of_rand_seed\n",argv[0]);
-				printf(" el uso de cualquiera de los parametros es opcional, los valores por defecto son:\n");
-				printf(" number_of_vertices = 0 , number_of_communities = 8, seed = 100\n");
-				printf("    number of vertices = 0 implica una seleccion aleatoria del tamaño de cada comunidad");
-				printf("    number of vertices > 0 asigna ese valor como tamaño para todas las comunidades ");
+				printf(" Usage: dbo [options]\n\n Options:\n");
+				printf("   -n number_of_vertices(nodes)\n   -c number_of_communities\n   -s value_of_rand_seed\n");
+				printf("   -h Shows this usage information\n\n");
+				printf("   number_of_vertices = 0, implies that size of the communities based on the ratio of the SED-graph\n");
+				printf("   number_of_vertices > 0, implies that all the communia fixed size for all the communities.\n\n");
+
+                                printf(" The use of anyone of the parameters is optional, it is used the default value when they are not provided\n\n");
+				printf(" The default values are:\n");
+                                printf("   number_of_vertices = 0, number_of_communities = 8, seed = 100\n");
+
 				exit(1); 
 			}
 		}
@@ -405,7 +410,7 @@ printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm)
         for(node = 0; node != comunity_num_nodes[comm]; node++){
 			if(comunity_size_node_links[comm][node]==0){
 				printf(" Error nodo %i sin conexion. comm %i\n",node,comm); 
-				printf("this code only for duol");exit(1);
+				printf("this code only for duo");exit(1);
 				//unsigned int total_links=comunity_size_node_links[comm][node];
 				//_link *previo=comunidades[comm][node];
 				//comunidades[comm][node]=( _link *) malloc(total_links+50*sizeof( _link ));
