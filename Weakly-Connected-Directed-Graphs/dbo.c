@@ -202,7 +202,7 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 		unsigned long long int max_rand,new_rand;
 printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm);fflush(stdout);
 		for(ruta=0;ruta<200+comunity_num_nodes[comm]*10;ruta++){
-			if(debug) printf(" ruta %i max_nodes=%i\n",ruta, comunity_num_nodes[comm]);fflush(stdout);
+			if(debug) {printf(" ruta %i max_nodes=%i\n",ruta, comunity_num_nodes[comm]);fflush(stdout);}
 			max_rand = 0; //(2<<(num_nodes+1))-1;// es el sumatorio desde i=0 hasta num_nodes-1 de (2<<i)  
 			//sumamos la probabilidad de cada nodo segun su popularidad
 			for(node=0;node<comunity_num_nodes[comm];node++){
