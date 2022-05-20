@@ -20,9 +20,6 @@
 #define ERR_MAIN_CONF_A  	401
 #define ERR_MAIN_CONF_B  	402
 
-
-
-
 typedef struct{
 		unsigned int link_node;		//id of the destination node
 		unsigned int link_comunity;	// community of the destination node 
@@ -75,5 +72,5 @@ _link*** comunidades_otra, unsigned int **comunity_size_node_links_otra, unsigne
 int interconnecta_comunidades_new( const unsigned int num_communities, //constante total de comunidades
 	_link*** comunidades_otra, unsigned int **comunity_size_node_links_otra, //arrays para los resultados, inicialmente vacios
 	unsigned int *comunity_num_nodes, const unsigned int total_nodes, //constantes de numero de nodos
-	float *comm_external_links, unsigned int **total_used_links_at_node, unsigned int mu_extern_links);
-
+	float *comm_external_links, unsigned int **total_used_links_at_node, unsigned int mu_extern_links,
+	const float weight_factor_intra_comm);
