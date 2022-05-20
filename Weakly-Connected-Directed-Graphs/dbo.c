@@ -543,4 +543,3 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 	printf("fin de programa\n");
 	return 0;
 }//end main
- 
