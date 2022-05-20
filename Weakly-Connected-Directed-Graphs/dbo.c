@@ -1,4 +1,5 @@
-//Author: J.M. Montañana, October 2019
+//Author: J.M. Montañana, 
+//last update May 2022
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -84,6 +85,7 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 	unsigned int i;
 	unsigned int num_nodes=0;
 	unsigned int num_communities=8;
+	float weight_factor_intra_comm=1.0;
 	// unsigned int extern_links=1;
 	const int debug=false; 
 	unsigned int myseed = 100;
@@ -116,6 +118,13 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 				}else{
 					printf("error: missing value for the seed.\n");exit(1);
 				}
+			} else if(strcmp(argv[i],"-w")==0){
+				if(argc>i){
+					printf("parametro Weight_factor on the vertices between communities is: '%s'\n",argv[i+1]);
+					weight_factor_intra_comm=atof(argv[i+1]);
+				}else{
+					printf("error: missing value for the Weight_factor.\n");exit(1);
+				}				
 			} else if(strcmp(argv[i],"-h")==0){ 
 				printf(" Usage: dbo [options]\n\n Options:\n");
 				printf("   -n number_of_vertices(nodes)\n   -c number_of_communities\n   -s value_of_rand_seed\n");
@@ -123,6 +132,8 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 				printf("   number_of_vertices = 0, implies that size of the communities based on the ratio of the SED-graph\n");
 				printf("   number_of_vertices > 0, implies that all the communia fixed size for all the communities.\n\n");
 
+				printf("   -w Weight_factor to apply on the vertices between communities.\n\n");
+				
                                 printf(" The use of anyone of the parameters is optional, it is used the default value when they are not provided\n\n");
 				printf(" The default values are:\n");
                                 printf("   number_of_vertices = 0, number_of_communities = 8, seed = 100\n");
@@ -192,7 +203,7 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 	//float newpeso;
         // El peso pasa a ser la probabilidad de que un alumno sea admitido en la opción i, i de 1 a 10
         //float peso[]={0.570464,0.164352,0.090634,0.069855,0.03752,0.026522,0.015767,0.011521,0.007588,0.005778};
-          float peso[]={1.05 ,1, 1, 1.21, 1.21, 1.21, 1.21, 1.21};
+        float peso[]={1.05 ,1, 1, 1.21, 1.21, 1.21, 1.21, 1.21};
   	//float peso[]={1.4,0.01,0.01,1.1,1.21,1.31,1.41,1.51};
 	for(comm=0;comm<num_communities;comm++){  
 		nodos_no_visitados = (unsigned int *) malloc(comunity_num_nodes[comm]*sizeof(unsigned int )); 
@@ -200,7 +211,7 @@ int main(int argc, char *argv[]) {// argv[i] from i = 0; to i<argcv;
 		path_nodes= (unsigned int *) malloc(comunity_num_nodes[comm]*sizeof(unsigned int ));
 		path_links= (unsigned int *) malloc(comunity_num_nodes[comm]*sizeof(unsigned int )); 
 		unsigned long long int max_rand,new_rand;
-printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm);fflush(stdout);
+		printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm);fflush(stdout);
 		for(ruta=0;ruta<200+comunity_num_nodes[comm]*10;ruta++){
 			if(debug) {printf(" ruta %i max_nodes=%i\n",ruta, comunity_num_nodes[comm]);fflush(stdout);}
 			max_rand = 0; //(2<<(num_nodes+1))-1;// es el sumatorio desde i=0 hasta num_nodes-1 de (2<<i)  
@@ -233,19 +244,19 @@ printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm)
                 		unsigned int visited;
                 		total_nodos_no_visitados=0;
                 		for(nodo=0;nodo<comunity_num_nodes[comm];nodo++){
-							visited=false;
-							i=0;
-							while((i<=path_length)&&(visited==false)){
-								if(nodo==path_nodes[i]){
-									visited=true;
-								}else{
-									i++;
-								}
-							}
-							if(visited==false){
-								nodos_no_visitados[total_nodos_no_visitados]=nodo; //lista completa de todos los nodos
-								total_nodos_no_visitados++;
-							}
+					visited=false;
+					i=0;
+					while((i<=path_length)&&(visited==false)){
+						if(nodo==path_nodes[i]){
+							visited=true;
+						}else{
+							i++;
+						}
+					}
+					if(visited==false){
+						nodos_no_visitados[total_nodos_no_visitados]=nodo; //lista completa de todos los nodos
+						total_nodos_no_visitados++;
+					}
                 		}    
 				//la ruta ya contiene un nodo inicial, que es el next_node
 				if(debug) printf(" step %i,total_nodos_no_visitados =%i total nodes %i\n",step,total_nodos_no_visitados, comunity_num_nodes[comm]);
@@ -387,7 +398,7 @@ printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm)
 		free(path_links);	
 		free(nodos_no_visitados);
 	}//for comm 
-     free(enlaces_a_nodos_no_visitados);
+	free(enlaces_a_nodos_no_visitados);
 	
 	//buscamos el nodo mas popular
 	for(comm=0;comm<num_communities;comm++){
@@ -406,8 +417,8 @@ printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm)
 			}
 		}
 		//printf("nodo con mas peso de salida es nodo %i peso %f comm %i\n", nodo_maxpeso, maxpeso, comm);
-        //buscamos nodos que han quedado completamente sin conectar, y los conectamos
-        for(node = 0; node != comunity_num_nodes[comm]; node++){
+        	//buscamos nodos que han quedado completamente sin conectar, y los conectamos
+        	for(node = 0; node != comunity_num_nodes[comm]; node++){
 			if(comunity_size_node_links[comm][node]==0){
 				printf(" Error nodo %i sin conexion. comm %i\n",node,comm); 
 				printf("this code only for duo");exit(1);
@@ -438,13 +449,10 @@ printf(" total numrutas %i para la comm %i\n", comunity_num_nodes[comm]*20,comm)
 					comunidades[comm][node][0].link_weight_out=peso[1];//newpeso;
 				}
 			}
-        }//for node
-    }//for comm 
+       		}//for node
+    	}//for comm 
 	
-
- 
-
-normaliza_pesos_salida(num_communities, comunidades, NULL, comunity_num_nodes, comunity_size_node_links, NULL);
+	normaliza_pesos_salida(num_communities, comunidades, NULL, comunity_num_nodes, comunity_size_node_links, NULL);
 
 	print_graph_double(num_communities, comunidades, NULL, comunity_num_nodes, comunity_size_node_links, NULL);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -498,7 +506,9 @@ normaliza_pesos_salida(num_communities, comunidades, NULL, comunity_num_nodes, c
 			//printf(" *** Enlaces extra para la comunidad [%u] is %.1f\n", comm, comm_external_links[comm]);
 		}  	 	
 		// mu_extern_links stands for mu from 0.1 ..0.2 .. 1.0.   0.1 means add a 10% of links of a community with the other comunities
- 		interconnecta_comunidades_new( num_communities, comunidades_otra, comunity_size_node_links_otra, comunity_num_nodes, total_nodes, comm_external_links, total_used_links_at_node, mu_extern_links); 
+ 		interconnecta_comunidades_new( num_communities, comunidades_otra, comunity_size_node_links_otra, comunity_num_nodes, total_nodes, 
+					      comm_external_links, total_used_links_at_node, mu_extern_links,
+					      weight_factor_intra_comm); 
 		//interconnecta_comunidades( num_communities, comunidades_otra, comunity_size_node_links_otra, comunity_num_nodes, total_nodes); 
 		
 		normaliza_pesos_salida(num_communities, comunidades, comunidades_otra, comunity_num_nodes, comunity_size_node_links, comunity_size_node_links_otra);
@@ -531,7 +541,6 @@ normaliza_pesos_salida(num_communities, comunidades, NULL, comunity_num_nodes, c
 	//free(comunity_used_links);
 	free(comunity_num_nodes);
 	printf("fin de programa\n");
-	// Do not forget to free the memory when you are done: 
 	return 0;
 }//end main
  
