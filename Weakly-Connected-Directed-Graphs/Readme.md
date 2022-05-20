@@ -43,7 +43,7 @@ This project has been tested with Linux Ubuntu 16.04 and Ubuntu 17.10  and the f
  -c number_of_communities 
  -s value_of_rand_seed
  -h Shows this usage information
- -f Weight factor to apply on the vertices between communities. Default value is 1. 
+ -w Weight_factor to apply on the vertices between communities. Teh default value is 1. 
  
    number_of_vertices = 0, implies that size of the communities based on the ratio of the SED-graph
    number_of_vertices > 0, implies a fixed size for all the communities.
