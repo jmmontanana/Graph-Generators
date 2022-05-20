@@ -97,6 +97,11 @@ Copyright (C) 2018-19 J.M. Montañana
 | 2018-02-02  | 1.0     | First public functional version | 
 
 ## References
-  <a name="ref1"></a>1. A. Hervas, P. P. Soriano, A. Jimenez, J. Peinado, R. Capilla, J. M. Montañana, 
-  Modeling Human Behavior: Individuals and Organizations, Nova Science Publishers, Inc., New York, 2017, Ch. 
+  <a name="ref1"></a>1. A. Hervas, P. P. Soriano, A. Jimenez, J. Peinado, R. Capilla, J. M. Montañana. (2017) 
+  Modeling Human Behavior: Individuals and Organizations, Nova Science Publishers, Inc., New York,  Ch. 
   Applying a graph model for the Spanish public university system, pp. 9–24.
+  
+  
+  <a name="ref2"></a>2. J.-M. Montanana, A. Hervas, and P.-P. Soriano-Jiménez. (2020) A Proposal for a Benchmark Generator of Weakly Connected Directed Graphs. Open Journal of Modelling and Simulation. Vol.8 No.1, January 2020, Article ID:  97276 
+https://doi.org/10.4236/ojmsi.2020.81002
+
