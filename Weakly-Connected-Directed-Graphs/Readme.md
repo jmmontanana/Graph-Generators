@@ -87,7 +87,7 @@ The description of the algorithms is in the process of revision before being pub
 The authors kindly request that publication be referenced by those who use this generator.
 We will give details of the publication as soon as it is accepted.
 
-Copyright (C) 2018-19 J.M. Montañana
+Copyright (C) 2018-2022 J.M. Montañana
 
 [Apache License v2](LICENSE).
 
