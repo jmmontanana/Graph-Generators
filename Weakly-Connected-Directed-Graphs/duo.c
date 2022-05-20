@@ -77,7 +77,8 @@ int main(int argc, char *argv[]) // argv[i] from i = 0; to i<argcv;
 {
 	unsigned int i,enlace;
 	unsigned int num_nodes=0; 
-	unsigned int num_communities=8; 
+	unsigned int num_communities=8;
+	float weight_factor_intra_comm=1.0;
 	unsigned int myseed = 100;
 	for (i=1;i<argc;i++){//i=0 es el nombre del programa
 		if(argv[i][0]=='-'){
@@ -108,6 +109,13 @@ int main(int argc, char *argv[]) // argv[i] from i = 0; to i<argcv;
 				}else{
 					printf("error parametro semilla sin valor asignado\n");exit(1);
 				}
+			} else if(strcmp(argv[i],"-w")==0){
+				if(argc>i){
+					printf("parametro Weight_factor on the vertices between communities is: '%s'\n",argv[i+1]);
+					weight_factor_intra_comm=atof(argv[i+1]);
+				}else{
+					printf("error: missing value for the Weight_factor.\n");exit(1);
+				}	
 			} else if(strcmp(argv[i],"-h")==0){ 
                                 printf(" Usage: duo [options]\n\n Options:\n");
                                 printf("   -n number_of_vertices(nodes)\n   -c number_of_communities\n   -s value_of_rand_seed\n");
@@ -408,7 +416,8 @@ int main(int argc, char *argv[]) // argv[i] from i = 0; to i<argcv;
 		}
 		// mu_extern_links stands for mu from 0.1 ..0.2 .. 1.0.   0.1 means add a 10% of links of a community with the other comunities
 		interconnecta_comunidades_new( num_communities, comunidades_otra, comunity_size_node_links_otra, comunity_num_nodes, total_nodes, comm_external_links, 
-		total_used_links_at_node,mu_extern_links ); 
+		total_used_links_at_node,mu_extern_links,
+		weight_factor_intra_comm ); 
 		//interconnecta_comunidades( num_communities, comunidades_otra, comunity_size_node_links_otra, comunity_num_nodes, total_nodes); 
 		normaliza_pesos_salida(num_communities, comunidades, comunidades_otra, comunity_num_nodes, comunity_size_node_links, comunity_size_node_links_otra);
 		print_graph_double(num_communities, comunidades, comunidades_otra, comunity_num_nodes, comunity_used_links, comunity_size_node_links_otra);
