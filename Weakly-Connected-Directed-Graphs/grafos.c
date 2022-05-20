@@ -1,4 +1,4 @@
-//Author: J.M. Montañana, October 2019
+//Author: J.M. Montaï¿½ana, October 2019
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -302,7 +302,7 @@ unsigned int** comunity_size_node_links, unsigned int** comunity_size_node_links
 void verify_comunities(const unsigned int num_communities, _link*** comunidades, unsigned int *comunity_num_nodes, unsigned int** comunity_size_node_links) 
 {
 	//vamos a contar cuantos enlaces usa cada nodo, alguno puede haber quedado sin conectar. (cuenta_local)
-	//vamos a contar cuantos nodos se conectan con él. (cuenta_conectados)
+	//vamos a contar cuantos nodos se conectan con ï¿½l. (cuenta_conectados)
 	//ambos cuentas tienen que ser iguales.
 	unsigned int total_nodes=0;
 	for(unsigned int comm=0;comm<num_communities;comm++){	
@@ -346,7 +346,7 @@ void remove_connection_comm(const unsigned int nodo, const unsigned int link, co
 		printf("Error remove_connection_comm_ini %u\n", enlace);
 		exit(ERR_REM_CONNECTION);
 	}
-	do{// Eliminamos el enlace "enlace", con sobre-escribiendo con otro de indice menor, al final querará libre la posicion 0 
+	do{// Eliminamos el enlace "enlace", con sobre-escribiendo con otro de indice menor, al final querarï¿½ libre la posicion 0 
 		if(enlace!=0){
 			comunidades[comm][nodo ][enlace].link_node     =comunidades[comm][nodo ][enlace-1].link_node;
 			comunidades[comm][nodo ][enlace].link_comunity =comunidades[comm][nodo ][enlace-1].link_comunity;
@@ -374,8 +374,8 @@ const unsigned int node_a, const unsigned int comm_a,
 const unsigned int node_b, const unsigned int comm_b){
 	//quitamos los valores en la posicion "node_a" y posicion "node_b" del vector temporal
 	// atencion, si borramos un elemento de la cadena, los elementos siguientes avanzan una posicion.
-	//por eso (en el caso que sean de la misma comunidad) borramos primero el elemento más al final de la cadena, 
-	// y despues el más cercano al comienzo
+	//por eso (en el caso que sean de la misma comunidad) borramos primero el elemento mï¿½s al final de la cadena, 
+	// y despues el mï¿½s cercano al comienzo
 	unsigned int mylast;
 	unsigned int node_earlier, node_later, comm_earlier, comm_later;
 	if((comm_a!=comm_b) ||(node_a<node_b)){
@@ -559,7 +559,7 @@ unsigned int busca_dest_otra_comunidad(
 		printf("BUSCA: source %u no se puede conectar con alguien!!\n", vector_com_nodes[source_comm][source]);
 		// source no se puede conectar con alguien, entonces buscamos un nodo (modify_node) que no este conectado con source, 
 		// evidentemente, todos los posibles destinos tienen todos los enlaces ocupados, porque no encontrabamos ninguno candidato valido con enlaces libres
-		// rompemos aleatoriamente uno de los enlaces, los enlaces rotos los quitamos del vector comunidades[][], y los añadiremos al vector_nodes[] (modify_node conectado con modify_dest)	
+		// rompemos aleatoriamente uno de los enlaces, los enlaces rotos los quitamos del vector comunidades[][], y los aï¿½adiremos al vector_nodes[] (modify_node conectado con modify_dest)	
 		//	pero es posible que el nodo modify_dest puede que ya estuviese conectado con source, por eso no lo habriamos considerado aunque tuviese enlaces disponibles, en ese caso todavia estara el nodo modify_dest en el vector vector_nodes[]	
 		if(misma_comunidad==false) {
 			for(community=0;community<num_communities;community++) 
@@ -659,7 +659,7 @@ if(local_last>0){// queda algun nodo sin conectarse con source-source_comm
 		remove_connection_comm(modify_node, modify_node_link, modify_comm,  comunidades, comunity_size_node_links);
 		// segundo para el nodo destino 
 		remove_connection_comm(modify_dest, modify_dest_link, modify_dest_comm,  comunidades, comunity_size_node_links);
-		//ahora añadimos al vector estos dos nuevos enlaces modify_node y modify_dest
+		//ahora aï¿½adimos al vector estos dos nuevos enlaces modify_node y modify_dest
 		// el nodo modify_dest puede que si este en vector_com_nodes[] 
 		unsigned int j=0;
 		unsigned int found=false;
@@ -819,7 +819,7 @@ int interconnecta_comunidades( const unsigned int num_communities,
 				if((vector_com_nodes[source_comm][source_pos]!=vector_com_nodes[dest_comm][dest_pos])||(source_comm!=dest_comm)){ 				
 					if(debug) 
 					printf("emparejamos %u con %u\n", vector_com_nodes[source_comm][source_pos], vector_com_nodes[dest_comm][dest_pos]);			
-					//añadimos la conexion source-dest a la vector de comunidades	 	
+					//aï¿½adimos la conexion source-dest a la vector de comunidades	 	
 					comunidades_otra[source_comm][vector_com_nodes[source_comm][source_pos]][ vector_com_links[source_comm][source_pos]-1].link_node 
 						=vector_com_nodes[dest_comm][dest_pos];
 					comunidades_otra[source_comm][vector_com_nodes[source_comm][source_pos]][ vector_com_links[source_comm][source_pos]-1].link_comunity
@@ -882,7 +882,7 @@ int interconnecta_comunidades( const unsigned int num_communities,
 				total_usados= total_links_queriamos_usar - links_por_usar_source_comm; 
 			//si no quedan sin definir, y hemos usado mas de max_posibles_dest/2 entonces hemos terminado con esta communidad source_comm
 			//quitamos los que quedan de esta comunidad source_comm en vector_com_links
-			//con la tranquilidad de que si rompemos algun enlace de source_comm, se añadiria nuevamente a la lista
+			//con la tranquilidad de que si rompemos algun enlace de source_comm, se aï¿½adiria nuevamente a la lista
 			if((total_usados>max_posibles_dest/2) &&(total_links_sin_definir==0)){
 				vector_com_last[source_comm]=0;
 			}			
@@ -921,7 +921,8 @@ int interconnecta_comunidades( const unsigned int num_communities,
 int interconnecta_comunidades_new( const unsigned int num_communities, //constante total de comunidades
 	_link*** comunidades_otra, unsigned int **comunity_size_node_links_otra, //arrays para los resultados, inicialmente vacios
 	unsigned int *comunity_num_nodes, const unsigned int total_nodes, //constantes de numero de nodos
-	float *comm_external_links, unsigned int **total_used_links_at_node, unsigned int mu_extern_links) { //comm_external_links es el numero de enlaces de salida de cada comunidad	
+	float *comm_external_links, unsigned int **total_used_links_at_node, unsigned int mu_extern_links,
+	const float weight_factor_intra_comm) { //comm_external_links es el numero de enlaces de salida de cada comunidad	
 	//const int debug=true; 
 	//posibles destinos para cada node-comm
 	unsigned int*** posible_dst_nodes=( unsigned int ***) malloc(num_communities*sizeof( unsigned int **)); 
@@ -1013,7 +1014,7 @@ int interconnecta_comunidades_new( const unsigned int num_communities, //constan
 			}			
 			comunidades_otra[comm_src][node_src][enlace].link_node =node_dst;
 			comunidades_otra[comm_src][node_src][enlace].link_comunity =comm_dst;//esto es la comunidad del nodo destino
-			comunidades_otra[comm_src][node_src][enlace].link_weight_out = 1; 	
+			comunidades_otra[comm_src][node_src][enlace].link_weight_out = weight_factor_intra_comm; 	
 			total_used_links_at_node[comm_src][node_src]= enlace+1;
 		//printf(" new ext link %u[%u] -> %u[%u]\n", node_src, comm_src, node_dst, comm_dst);
 			total--;
