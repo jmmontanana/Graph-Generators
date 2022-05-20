@@ -6,6 +6,8 @@ The existing community detection algorithms have difficulties to detect the comm
 Thus, we consider that a benchmarking graph generator with the properties of the SED-graph 
 is needed in order to develop a detection algorithm. 
 
+Statistical analysis and more details are provided at [[2]](#ref2).
+
 ## Prerequisites
 Before you can proceed, please clone the repository:
 
