@@ -1,3 +1,4 @@
+// #pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,57 +21,61 @@
 #define ERR_MAIN_CONF_A  	401
 #define ERR_MAIN_CONF_B  	402
 
-typedef struct{
-		unsigned int link_node;		//id of the destination node
-		unsigned int link_comunity;	// community of the destination node 
-		double link_weight_out;		// community of the destination node 
+typedef struct {
+	unsigned int link_node;		//id of the destination node
+	unsigned int link_comunity;	// community of the destination node
+	double link_weight_out;		// community of the destination node
 } _link;
 
 
-void normaliza_pesos_salida(const unsigned int num_communities, _link*** comunidades, _link*** comunidades_otra, unsigned int *comunity_num_nodes, 
-unsigned int** comunity_size_node_links, unsigned int** comunity_size_node_links_otra);
+void normaliza_pesos_salida(const unsigned int num_communities, _link*** comunidades,
+	_link*** comunidades_otra, unsigned int* comunity_num_nodes,
+	unsigned int** comunity_size_node_links, unsigned int** comunity_size_node_links_otra);
 
 
 
-//this function prints in screen the nodes in each community 	 
-void print_graph (const unsigned int num_comunities, _link*** comunidades, unsigned int *comunity_num_nodes, 
-		unsigned int** comunity_size_node_links);
-	
-void print_graph_double (const unsigned int num_comunities, _link*** comunidades, _link*** comunidades_otra, unsigned int *comunity_num_nodes, 
-		unsigned int** comunity_size_node_links,
-		unsigned int** comunity_size_node_links_otra);
+//this function prints in screen the nodes in each community
+void print_graph(const unsigned int num_comunities, _link*** comunidades, unsigned int* comunity_num_nodes,
+	unsigned int** comunity_size_node_links);
 
-void verify_comunities(const unsigned int num_comunities, _link*** comunidades, unsigned int *comunity_num_nodes, unsigned int** comunity_size_node_links) ;
-	
-void remove_connection_comm(const unsigned int nodo, const unsigned int link, const unsigned int comm, 
-		_link*** comunidades,
-		unsigned int** comunity_size_node_links);
+void print_graph_double(const unsigned int num_comunities, _link*** comunidades, _link*** comunidades_otra, unsigned int* comunity_num_nodes,
+	unsigned int** comunity_size_node_links,
+	unsigned int** comunity_size_node_links_otra);
 
-void remove_from_vector_comm(unsigned int** vector_com_nodes,unsigned int** vector_com_links, unsigned int *last, 
-		const unsigned int node_a, const unsigned int comm_a, 
-		const unsigned int node_b, const unsigned int comm_b);
+void verify_comunities(const unsigned int num_comunities, _link*** comunidades, unsigned int* comunity_num_nodes, unsigned int** comunity_size_node_links);
+
+void remove_connection_comm(const unsigned int nodo, const unsigned int link, const unsigned int comm,
+	_link*** comunidades,
+	unsigned int** comunity_size_node_links);
+
+void remove_from_vector_comm(unsigned int** vector_com_nodes, unsigned int** vector_com_links, unsigned int* last,
+	const unsigned int node_a, const unsigned int comm_a,
+	const unsigned int node_b, const unsigned int comm_b);
 
 unsigned int busca_dest_otra_comunidad(
-			unsigned int *dest_comm, //extra for otra_comunidad
-			const unsigned int source, //always equal to 0, because it is in the first position of vector_com_nodes
-			const unsigned int misma_comunidad, 
-			unsigned int *last, 
-			unsigned int** vector_com_nodes, //los vectores van a ir haciendose mas cortos, a medida que sean asignados los enlaces
-			unsigned int** vector_com_links, //los vectores van a ir haciendose mas cortos, a medida que sean asignados los enlaces
-			_link*** comunidades, 
-			const unsigned int source_comm, //identifica esta comunidad
-			unsigned int *comunity_num_nodes, 
-			const unsigned int total_nodes,
-			//const unsigned int num_links, 
-			//const unsigned int extern_links, 
-			const unsigned int num_comunities, //extra for otra_comunidad
-			unsigned int **comunity_size_node_links );
-			 
-int interconnecta_comunidades(  const unsigned int num_comunities, 
-_link*** comunidades_otra, unsigned int **comunity_size_node_links_otra, unsigned int *comunity_num_nodes, const unsigned int total_nodes ) ;
+	unsigned int* dest_comm, //extra for otra_comunidad
+	const unsigned int source, //always equal to 0, because it is in the first position of vector_com_nodes
+	const unsigned int misma_comunidad,
+	unsigned int* last,
+	unsigned int** vector_com_nodes, //los vectores van a ir haciendose mas cortos, a medida que sean asignados los enlaces
+	unsigned int** vector_com_links, //los vectores van a ir haciendose mas cortos, a medida que sean asignados los enlaces
+	_link*** comunidades,
+	const unsigned int source_comm, //identifica esta comunidad
+	unsigned int* comunity_num_nodes,
+	const unsigned int total_nodes,
+	//const unsigned int num_links,
+	//const unsigned int extern_links,
+	const unsigned int num_comunities, //extra for otra_comunidad
+	unsigned int** comunity_size_node_links);
 
-int interconnecta_comunidades_new( const unsigned int num_communities, //constante total de comunidades
-	_link*** comunidades_otra, unsigned int **comunity_size_node_links_otra, //arrays para los resultados, inicialmente vacios
-	unsigned int *comunity_num_nodes, const unsigned int total_nodes, //constantes de numero de nodos
-	float *comm_external_links, unsigned int **total_used_links_at_node, unsigned int mu_extern_links,
-	const float weight_factor_intra_comm);
+int interconnecta_comunidades(const unsigned int num_comunities,
+	_link*** comunidades_otra, unsigned int** comunity_size_node_links_otra, unsigned int* comunity_num_nodes, const unsigned int total_nodes);
+
+int interconnecta_comunidades_new(const unsigned int num_communities, //constante total de comunidades
+	_link*** comunidades_orig, unsigned int** comunity_size_node_links_orig, //arrays para los resultados, inicialmente vacios
+
+	_link*** comunidades_otra, unsigned int** comunity_size_node_links_otra, //arrays para los resultados, inicialmente vacios
+	unsigned int* comunity_num_nodes, const unsigned int total_nodes, //constantes de numero de nodos
+	double* comm_external_links, unsigned int** total_used_links_at_node, unsigned int mu_extern_links);
+
+
