@@ -1,4 +1,6 @@
-// #pragma once
+#if defined _MSC_VER
+#pragma once
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

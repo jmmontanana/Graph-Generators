@@ -1,7 +1,11 @@
-// #pragma once
+#if defined _MSC_VER
+#pragma once
+#endif
 #include <stdio.h>
 #include <errno.h>
+#if defined _MSC_VER
 #include "grafos.h"
+#endif
 void makedir(const char path[]);
 
 char* mitoa(int value, char* result, int base);

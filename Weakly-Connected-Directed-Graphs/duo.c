@@ -4,6 +4,7 @@
 #include <string.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <math.h>
 #include "grafos.h"
 #include "write_r.h"
 #include "tamano_com.h"
@@ -11,11 +12,12 @@ char method[] = "duo";
 char folder_base_name[] = "data_duo";
 
 //#include <config.h>
-#include <math.h>
 //#include <gsl/gsl_rng.h>
 //#include <gsl/gsl_randist.h>
 
-//if windows #include <iostream>
+#if defined _MSC_VER
+#include <iostream>
+#endif
 
 unsigned int rand_popular_node(const unsigned int num_nodes, const unsigned long long int max_rand, const unsigned int last, unsigned int* vector_nodes_available) {
 	if (max_rand == 0) {
@@ -24,7 +26,7 @@ unsigned int rand_popular_node(const unsigned int num_nodes, const unsigned long
 	}
 	//default definition of max_rand is:
 	// unsigned int max_rand = 0;//(2<<(num_nodes+1))-1;// es el sumatorio desde i=0 hasta num_nodes-1 de (2<<i)
-	// for(node=0;node<num_nodes;node++){
+	// for (node=0;node<num_nodes;node++) {
 	// max_rand+= (2<<(num_nodes-node));
 	// vector_nodes_available[node]=node;
 	// }
@@ -32,12 +34,11 @@ unsigned int rand_popular_node(const unsigned int num_nodes, const unsigned long
 	//buscamos a que nodo corresponde
 	unsigned int node = 0;
 	unsigned long long int accum = 0;
-	unsigned int encontrado = false;
+	bool encontrado = false;
 	while ((node < last) && (encontrado == false)) {
 		accum += ((unsigned long long int)2 << (num_nodes - vector_nodes_available[node]));
 		if (opt < accum) {
 			encontrado = true;
-			//printf(" acum %i node %i max_rand%i\n", accum, vector_nodes_available[node], max_rand);
 		}
 		else {
 			node++;
@@ -83,26 +84,26 @@ unsigned long long int popularidad_de(const unsigned int node, const unsigned in
 }
 
 
-int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
+int main(int argc, char* argv[])
 {
-	unsigned int  enlace;
+	unsigned int enlace;
 	unsigned int num_nodes = 0;
 	unsigned int num_communities = 8;
-	//float weight_factor_intra_comm=1.0;
+	//float weight_factor_intra_comm = 1.0;
+	bool unnormalized = false;
 	unsigned int myseed = 100;
-	unsigned int unnormalized = false;
 	for (int i = 1; i < argc; i++) {//i=0 es el nombre del programa
 		if (argv[i][0] == '-') {
 			if (strcmp(argv[i], "-n") == 0) {
 				if (argc > i) {
-					printf("parametro nodos es '%s'\n", argv[i + 1]);
+					printf("parameter vertices is: '%s'\n", argv[i + 1]);
 					num_nodes = atoi(argv[i + 1]);
 				}
 				else {
 					printf("error parametro de numero de nodos sin valor asignado\n"); exit(1);
 				}
 				//} else if(strcmp(argv[i],"-l")==0){
-				//	if(argc>i){
+				//	if(argc>i) {
 				//		printf("parametro enlaces es '%s'\n",argv[i+1]);
 				//	}else{
 				//		printf("error parametro de numero de enlaces sin valor asignado\n");exit(1);
@@ -154,9 +155,11 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 
 	char folder_name[255];
 	char mode[2] = { unnormalized ? 'u' : 'n', '\0' };
-
+#if defined _MSC_VER
 	sprintf_s(folder_name, "%s_%d_%d_%s", folder_base_name, num_communities, num_nodes, mode);
-
+#elif defined __GNUC__
+	sprintf(folder_name, "%s_%d_%d_%s", folder_base_name, num_communities, num_nodes, mode);
+#endif
 	srand(myseed);//((unsigned) time(&t));
 	//definimos la estructura de comunidades:
 	//una comunidad tiene un total de enlaces de: num_links*num_nodes
@@ -365,7 +368,6 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 		free(estudiante_preferencias[stud]);
 	free(estudiante_preferencias);
 
-
 	//buscamos el nodo mas popular
 	for (comm = 0; comm < num_communities; comm++) {
 		double maxpeso = 0.0;
@@ -388,7 +390,7 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 		//buscamos nodos que han quedado completamente sin conectar, y los conectamos
 		for (node = 0; node != comunity_num_nodes[comm]; node++) {
 			if (comunity_size_node_links[comm][node] == 0) {
-				printf(" error nodo %i sin conexion. comm %i\n", node, comm);
+				printf(" Error nodo %i sin conexion. comm %i\n", node, comm);
 				unsigned int total_links = comunity_size_node_links[comm][node];
 				_link* previo = comunidades[comm][node];
 				comunidades[comm][node] = (_link*)malloc(total_links + 50 * sizeof(_link));
@@ -407,6 +409,7 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 					if (comunidades[comm][node][enlace].link_node != UINT_MAX)
 						conectado = 1;
 				if (conectado == 0) {
+					//if (debug)
 					printf(" node %i[%i] no conected, create connection to node %i\n", node, comm, nodo_maxpeso);
 					comunidades[comm][node][0].link_node = nodo_maxpeso;
 					float newpeso = 2.0;
@@ -443,13 +446,18 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 	print_graph_double(num_communities, comunidades, NULL, comunity_num_nodes, comunity_used_links, NULL);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	// ahora conectamos enlaces entre comunidades
-
 	char comm2[50];
 	char net2[50];
 	char nodes_by_comm_file[50];
+#if defined _MSC_VER
 	sprintf_s(comm2, "%s%s%s_%d.dat", folder_name, "/community_", method, myseed);
 	sprintf_s(net2, "%s%s%s_%d_0.dat", folder_name, "/network_", method, myseed);
 	sprintf_s(nodes_by_comm_file, "%s%s%s_%d.dat", folder_name, "/nodes_by_comm_", method, myseed);
+#elif defined __GNUC__
+	sprintf(comm2, "%s%s%s_%d.dat", folder_name, "/community_", method, myseed);
+	sprintf(net2, "%s%s%s_%d_0.dat", folder_name, "/network_", method, myseed);
+	sprintf(nodes_by_comm_file, "%s%s%s_%d.dat", folder_name, "/nodes_by_comm_", method, myseed);
+#endif
 	makedir(folder_name);
 	write_r_file(num_communities, comunity_num_nodes, comm2, net2, nodes_by_comm_file, comunity_size_node_links, comunidades, NULL, NULL);
 
@@ -481,14 +489,14 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 			extern_links = 0.0;
 			for (unsigned int nodo = 0; nodo < comunity_num_nodes[comm]; nodo++) {
 				//int locallinks=0;
-				//for(enlace=0;enlace <comunity_size_node_links[comm][nodo];enlace++)
+				//for (enlace=0;enlace <comunity_size_node_links[comm][nodo];enlace++)
 				//	if(comunidades[comm][nodo][enlace].link_node !=UINT_MAX)
 				//		locallinks++;
 				extern_links += total_used_links[comm][nodo];//locallinks;
 				//printf ("links from %u[%u] are: %u=%u\n", nodo, comm, locallinks,total_used_links[comm][nodo]);
 				total_used_links_at_node[comm][nodo] = 0;
 				//comunidades_otra[comm][nodo]=( _link *) malloc( (extern_links)*sizeof( _link ));
-				//for(int enlace = 0; enlace < extern_links; enlace++){
+				//for (int enlace = 0; enlace < extern_links; enlace++){
 				//	comunidades_otra[comm][nodo][enlace].link_node = UINT_MAX;// UINT_MAX stands for undefined destination node
 				//	comunidades_otra[comm][nodo][enlace].link_comunity = UINT_MAX;// UINT_MAX stands for undefined destination node
 				//}
@@ -505,9 +513,17 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 		if (unnormalized == false)
 			normaliza_pesos_salida(num_communities, comunidades, comunidades_otra, comunity_num_nodes, comunity_size_node_links, comunity_size_node_links_otra);
 		print_graph_double(num_communities, comunidades, comunidades_otra, comunity_num_nodes, comunity_used_links, comunity_size_node_links_otra);
+
+
+#if defined _MSC_VER
 		sprintf_s(comm2, "%s%s%s_%d.dat", folder_name, "/community_", method, myseed);
 		sprintf_s(net2, "%s%s%s_%d_%d.dat", folder_name, "/network_", method, myseed, mu_extern_links);
 		sprintf_s(nodes_by_comm_file, "%s%s%s_%d.dat", folder_name, "/nodes_by_comm_", method, myseed);
+#elif defined __GNUC__
+		sprintf(comm2, "%s%s%s_%d.dat", folder_name, "/community_", method, myseed);
+		sprintf(net2, "%s%s%s_%d_%d.dat", folder_name, "/network_", method, myseed, mu_extern_links);
+		sprintf(nodes_by_comm_file, "%s%s%s_%d.dat", folder_name, "/nodes_by_comm_", method, myseed);
+#endif
 		write_r_file(num_communities, comunity_num_nodes, comm2, net2, nodes_by_comm_file,
 			comunity_size_node_links, comunidades, comunity_size_node_links_otra, comunidades_otra);
 	}
@@ -544,3 +560,4 @@ int main(int argc, char* argv[]) // argv[i] from i = 0; to i<argcv;
 	// Do not forget to free the memory when you are done:
 	return 0;
 }//end main
+

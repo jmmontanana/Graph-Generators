@@ -6,8 +6,6 @@
 #include <stdbool.h>
 #include "grafos.h"
 
-
-
 //ordenados de mayor a menor
 void bubble_sort_linkout_accumulated(long list[], double** linkout_accumulated, const unsigned int n, const unsigned int comm) {
 	long c, d, t;
@@ -22,7 +20,6 @@ void bubble_sort_linkout_accumulated(long list[], double** linkout_accumulated, 
 		}
 	}
 }
-
 
 ////ordenados de mayor a menor
 //void bubble_sort(long list[], long n){
@@ -98,15 +95,11 @@ void normaliza_pesos_salida(const unsigned int num_communities, _link*** comunid
 	}
 }
 
-
-
 float peso_link(_link* nodo, const unsigned int enlace, const unsigned int dest, const int max_link) {
 	if ((nodo == NULL) || (enlace >= max_link) || (dest == UINT_MAX)) {
 		return 0.0;
 	}
-	else {
-		return nodo[enlace].link_weight_out;
-	}
+	return nodo[enlace].link_weight_out;
 }
 
 
@@ -329,7 +322,6 @@ void verify_comunities(const unsigned int num_communities, _link*** comunidades,
 		exit(EXIT_FAILURE);
 	}
 
-
 	for (unsigned int comm = 0; comm < num_communities; comm++) {
 		for (unsigned int nodo = 0; nodo < comunity_num_nodes[comm]; nodo++) {
 			cuenta_local[nodo] = 0;//iniciamos el contador, es el siguiente nodo
@@ -356,7 +348,6 @@ void verify_comunities(const unsigned int num_communities, _link*** comunidades,
 	free(cuenta_local);
 	free(cuenta_conectados);
 }
-
 
 
 void remove_connection_comm(const unsigned int nodo, const unsigned int link, const unsigned int comm,

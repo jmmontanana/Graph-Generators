@@ -10,8 +10,7 @@ unsigned int get_new_community_size(const unsigned int num_comunities){
 	float max_number= num_comunities; 
 	float minimum_number= 1.0;
 	float myrand =  ((float)rand()/(float)(RAND_MAX));
-	float num =  myrand * (max_number + 1 - minimum_number) + minimum_number;
-	//int num= ( rand() % (max_number + 1 - minimum_number)) + minimum_number;   //queremos que sea un numero entre 1 y num_comunities
+	float num =  myrand * (max_number + 1 - minimum_number) + minimum_number;  //queremos que sea un numero entre 1 y num_comunities
 	
     float newsize =ceil( -bb/log((num-aa)/cc));
 	if (newsize==1) newsize=2;

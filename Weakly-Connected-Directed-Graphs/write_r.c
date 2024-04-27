@@ -1,32 +1,28 @@
 #include <stdio.h>
 #include <errno.h>
 #include "grafos.h"
+
+#if defined _MSC_VER
+#include <string>
+#include <direct.h>
+#include <stdio.h>
+#include <io.h> // Para _access
+#include <stdlib.h> // Para _access y _CRT_ERROR
+#include <iostream>
+#include <fstream>
+#include <vector>
+#define access _access
+/* Values for the second argument to access.
+These may be OR'd together.  */
+#define R_OK    4       /* Test for read permission.  */
+#define W_OK    2       /* Test for write permission.  */
+//#define   X_OK    1       /* execute permission - unsupported in windows*/
+#define F_OK    0       /* Test for existence.  */
+#elif defined __GNUC__
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
-
-//if windows
-// #include <string>
-// #if defined _MSC_VER
-// #include <direct.h>
-// #elif defined __GNUC__
-// #include <sys/types.h>
-// #include <sys/stat.h>
-// #endif
-// #include <stdio.h>
-// #include <io.h> // Para _access
-// #include <stdlib.h> // Para _access y _CRT_ERROR
-// #include <iostream>
-// #include <fstream>
-// #include <vector>
-// #define access _access
-// /* Values for the second argument to access.
-// These may be OR'd together.  */
-// #define R_OK    4       /* Test for read permission.  */
-// #define W_OK    2       /* Test for write permission.  */
-// //#define   X_OK    1       /* execute permission - unsupported in windows*/
-// #define F_OK    0       /* Test for existence.  */
-
+#endif
 
 void makedir(const char path[]) { 
 	struct stat st = { 0 };
@@ -44,7 +40,6 @@ void makedir(const char path[]) {
 #endif
 	}
 }
-
 
 char* mitoa(int value, char* result, int base) {
 	// check that the base if valid
