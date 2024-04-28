@@ -183,7 +183,7 @@ int write_r_file(const unsigned int num_comunities,
 						if (comunidades[comm][nodo][enlace].link_node != UINT_MAX) {
 							dest = comunidades[comm][nodo][enlace].link_node;
 							dest_comm = comunidades[comm][nodo][enlace].link_comunity;
-							fprintf(fpnet, "%i\t%i\t%7.2f\n", 1 + nodo + acumulado_id[comm],
+							fprintf(fpnet, "%i\t%i\t%7.4f\n", 1 + nodo + acumulado_id[comm],
 							1 + dest + acumulado_id[dest_comm],
 							comunidades[comm][nodo][enlace].link_weight_out);
 							//el nodo id minimo en R es 1
@@ -195,7 +195,7 @@ int write_r_file(const unsigned int num_comunities,
 						if (comunidades_otra[comm][nodo][enlace].link_node != UINT_MAX) {
 							dest = comunidades_otra[comm][nodo][enlace].link_node;
 							dest_comm = comunidades_otra[comm][nodo][enlace].link_comunity;
-							fprintf(fpnet, "%i \t%i\t%7.2f\n", 1 + nodo + acumulado_id[comm], 
+							fprintf(fpnet, "%i \t%i\t%7.4f\n", 1 + nodo + acumulado_id[comm], 
 							1 + dest + acumulado_id[dest_comm],
 							comunidades_otra[comm][nodo][enlace].link_weight_out);
 							//el nodo id minimo en R es 1
@@ -207,7 +207,7 @@ int write_r_file(const unsigned int num_comunities,
 		fclose(fpnet);
 	}
 	else {
-		if (fpnet == NULL) printf("Error opening network_file  %s\n", network_file);
+		if (fpnet == NULL) printf("Error opening network_file %s\n", network_file);
 		return 1;
 	}
 	free(acumulado_id);

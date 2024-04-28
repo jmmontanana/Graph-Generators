@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#include <stdbool.h>
+#include <stdbool.h> 
 #include "grafos.h"
 
 //ordenados de mayor a menor
@@ -972,7 +972,7 @@ int interconnecta_comunidades_new(const unsigned int num_communities, //constant
 		printf("error reservando mem posible_dst_total\n"); fflush(stdout);
 		exit(1);
 	}
-	for (int comm_src = 0; comm_src < num_communities; comm_src++) {
+	for (unsigned int comm_src = 0; comm_src < num_communities; comm_src++) {
 		posible_dst_nodes[comm_src] = (unsigned int**)malloc(comunity_num_nodes[comm_src] * sizeof(unsigned int*));
 		if (posible_dst_nodes[comm_src] == NULL) {
 			printf("error reservando mem\n"); fflush(stdout);
@@ -984,7 +984,7 @@ int interconnecta_comunidades_new(const unsigned int num_communities, //constant
 			exit(1);
 		}
 		posible_dst_total[comm_src] = (unsigned int*)malloc(comunity_num_nodes[comm_src] * sizeof(unsigned int));
-		for (int node = 0; node < comunity_num_nodes[comm_src]; node++) {
+		for (unsigned int node = 0; node < comunity_num_nodes[comm_src]; node++) {
 			posible_dst_nodes[comm_src][node] = (unsigned int*)malloc((total_nodes - comunity_num_nodes[comm_src]) * sizeof(unsigned int));
 			if (posible_dst_nodes[comm_src][node] == NULL) {
 				printf("error reservando mem\n"); fflush(stdout);
@@ -996,8 +996,8 @@ int interconnecta_comunidades_new(const unsigned int num_communities, //constant
 				exit(1);
 			}
 		}
-		for (int node_src = 0; node_src < comunity_num_nodes[comm_src]; node_src++) {
-			//for(int i=0; i<total_nodes-comunity_num_nodes[comm_src]; i++){
+		for (unsigned int node_src = 0; node_src < comunity_num_nodes[comm_src]; node_src++) {
+			//for(unsigned int i=0; i < total_nodes-comunity_num_nodes[comm_src]; i++){
 			//	posible_dst_nodes[comm_src][node_src][i]=0;
 			//	posible_dst_comm[comm_src][node_src][i]=0;
 			//	posible_src_nodes[comm_src][node_src][i]=0;
@@ -1005,9 +1005,9 @@ int interconnecta_comunidades_new(const unsigned int num_communities, //constant
 			//}
 			posible_dst_total[comm_src][node_src] = total_nodes - comunity_num_nodes[comm_src];
 			unsigned int contador = 0;
-			for (int comm_dst = 0; comm_dst < num_communities; comm_dst++) {
+			for (unsigned int comm_dst = 0; comm_dst < num_communities; comm_dst++) {
 				if (comm_src != comm_dst) {
-					for (int node_dest = 0; node_dest < comunity_num_nodes[comm_dst]; node_dest++) {
+					for (unsigned int node_dest = 0; node_dest < comunity_num_nodes[comm_dst]; node_dest++) {
 						posible_dst_nodes[comm_src][node_src][contador] = node_dest;
 						posible_dst_comm[comm_src][node_src][contador] = comm_dst;
 						contador++;
@@ -1065,34 +1065,44 @@ int interconnecta_comunidades_new(const unsigned int num_communities, //constant
 			comunidades_otra[comm_src][node_src][enlace].link_comunity = comm_dst;//esto es la comunidad del nodo destino
 			comunidades_otra[comm_src][node_src][enlace].link_weight_out = 1;
 			// en lugar de peso 1, vamos a poner el 90% del enlace mas debil
-			// de entre los enlaces que llegan o salen del node_src o node_dst
-			unsigned int total_linksxx = comunity_size_node_links_orig[comm_src][node_src];
-			//if(comm_src ==0 )
-			//printf("***** new link node_src %d node_dst %d com_dst %i\n", node_src, node_dst, node_dst);
-			float www = -1;
-			// unsigned int node_dst_www =0;
-			for (int temp_link = 0; temp_link < total_linksxx; temp_link++) {
-				if (comunidades_orig[comm_src][node_src][temp_link].link_node != UINT_MAX) {
-					float wgwg = comunidades_orig[comm_src][node_src][temp_link].link_weight_out;
-					// 	if(comm_src==0 || comm_src==7)
-					// 	printf(" www com_src %d node_src %d node_dst %d   peso %f \n",comm_src,node_src,
-					// comunidades_orig[comm_src][node_src][temp_link].link_node, wgwg);
-					if ((wgwg > 0 && wgwg < www) || www == -1) {
-						www = wgwg;
-						// node_dst_www= comunidades_orig[comm_src][node_src][temp_link].link_node;
-						// printf(" mayor peso comm_src%d node_src %d comm_dst %d node_dst %d temp_link %d peso %f\n", comm_src, node_src, comm_dst, comunidades_orig[comm_src][node_src][temp_link].link_node, temp_link, www);
+			// de entre los enlaces de los nodos conectados que llegan o salen del node_src o node_dst 
+			float weight_for_new_link = -1;
+			for (unsigned int comm_search = 0; comm_search < num_communities; comm_search++) {
+				for (unsigned int nodeSearch = 0; nodeSearch < comunity_num_nodes[comm_search]; nodeSearch++) {
+					unsigned int total_links_node = comunity_size_node_links_orig[comm_search][nodeSearch];
+					float minweigth=-1;
+					bool found=false;
+					for (unsigned int link_search = 0; link_search < total_links_node; link_search++) {
+						if(comunidades_orig[comm_search][nodeSearch][link_search].link_node != UINT_MAX) { 
+							float link_weight_out = comunidades_orig[comm_search][nodeSearch][link_search].link_weight_out;
+							if ((link_weight_out > 0 && link_weight_out < minweigth) || minweigth == -1) {
+								minweigth = link_weight_out; 
+							}
+							if(nodeSearch == node_src && comm_search == comm_src) found=true;
+							if(nodeSearch == node_dst && comm_search == comm_dst) found=true; 
+							if (comunidades_orig[comm_search][nodeSearch][link_search].link_node == node_src
+							&&
+							comunidades_orig[comm_search][nodeSearch][link_search].link_comunity == comm_src
+							) {
+								found=true; 
+							} 
+							if (comunidades_orig[comm_search][nodeSearch][link_search].link_node == node_dst
+							&&
+							comunidades_orig[comm_search][nodeSearch][link_search].link_comunity == comm_dst
+							) {
+								found=true; 
+							}
+						}
+					}
+					if(found && minweigth > 0 && (minweigth < weight_for_new_link || weight_for_new_link == -1)) {
+						weight_for_new_link = minweigth;
 					}
 				}
 			}
-
-			if (www > 0) {
-				comunidades_otra[comm_src][node_src][enlace].link_weight_out = www * .9;
-				//if (comm_src == 0 )
-					//printf("***** new link comm_src%d node_src %d node_dst %d com_dst %i peso %f\n", comm_src,node_src,node_dst, node_dst, comunidades_otra[comm_src][node_src][enlace].link_weight_out);
-				// unsigned int node_dst_www= comunidades_orig[comm_src][node_src][enlace].link_node;
-				// printf("---xxx comm_src%d node_src %d node_dst %d linknum %d peso %f\n", comm_src, node_src, node_dst_www, enlace, www);
+   
+			if (weight_for_new_link > 0) {
+				comunidades_otra[comm_src][node_src][enlace].link_weight_out = weight_for_new_link * .9;
 			}
-
 			total_used_links_at_node[comm_src][node_src] = enlace + 1;
 			//printf(" new ext link %u[%u] -> %u[%u]\n", node_src, comm_src, node_dst, comm_dst);
 			total--;
@@ -1107,7 +1117,7 @@ int interconnecta_comunidades_new(const unsigned int num_communities, //constant
 				//int dst_total=posible_dst_total[comm_src][node_src];
 				//while((dst_total==0)&&(node_src<comunity_num_nodes[comm_src])){
 				//	node_src++;
-				//	if( node_src < comunity_num_nodes[comm_src] )
+				//	if( node_src < comunity_num_nodes[comm_src])
 				//		dst_total=posible_dst_total[comm_src][node_src];
 				//}
 			}
