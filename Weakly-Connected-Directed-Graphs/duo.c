@@ -8,8 +8,8 @@
 #include "grafos.h"
 #include "write_r.h"
 #include "tamano_com.h"
-char method[] = "duo";
-char folder_base_name[] = "data_duo";
+const char method[] = "duo";
+const char folder_base_name[] = "data_duo";
 
 //#include <config.h>
 //#include <gsl/gsl_rng.h>
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 	for (int i = 1; i < argc; i++) {//i=0 es el nombre del programa
 		if (argv[i][0] == '-') {
 			if (strcmp(argv[i], "-n") == 0) {
-				if (argc > i) {
+				if (argc > i + 1) {
 					printf("parameter vertices is: '%s'\n", argv[i + 1]);
 					num_nodes = atoi(argv[i + 1]);
 				}
@@ -103,14 +103,14 @@ int main(int argc, char* argv[])
 					printf("error parametro de numero de nodos sin valor asignado\n"); exit(1);
 				}
 				//} else if(strcmp(argv[i],"-l")==0){
-				//	if(argc>i) {
+				//	if(argc > i + 1) {
 				//		printf("parametro enlaces es '%s'\n",argv[i+1]);
 				//	}else{
 				//		printf("error parametro de numero de enlaces sin valor asignado\n");exit(1);
 				//	}
 			}
 			else if (strcmp(argv[i], "-c") == 0) {
-				if (argc > i) {
+				if (argc > i + 1) {
 					printf("parametro comunidades es '%s'\n", argv[i + 1]);
 					num_communities = atoi(argv[i + 1]);
 				}
@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
 				}
 			}
 			else if (strcmp(argv[i], "-s") == 0) {
-				if (argc > i) {
+				if (argc > i + 1) {
 					printf("parametro semilla es '%s'\n", argv[i + 1]);
 					myseed = atoi(argv[i + 1]);
 				}
@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
 					printf("error parametro semilla sin valor asignado\n"); exit(1);
 				}
 			// } else if(strcmp(argv[i],"-w")==0){
-			// 	if(argc>i){
+			// 	if(argc > i + 1){
 			// 		printf("parametro Weight_factor on the vertices between communities is: '%s'\n",argv[i+1]);
 			// 		weight_factor_intra_comm=atof(argv[i+1]);
 			// 	}else{
@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	char folder_name[255];
+	char folder_name[9+20+20+2+1 ];//20 chars is the maximum space for int to string
 	char mode[2] = { unnormalized ? 'u' : 'n', '\0' };
 #if defined _MSC_VER
 	sprintf_s(folder_name, "%s_%d_%d_%s", folder_base_name, num_communities, num_nodes, mode);
@@ -394,8 +394,10 @@ int main(int argc, char* argv[])
 				unsigned int total_links = comunity_size_node_links[comm][node];
 				_link* previo = comunidades[comm][node];
 				comunidades[comm][node] = (_link*)malloc(total_links + 50 * sizeof(_link));
-				for (unsigned int temp_link = total_links; temp_link < total_links + 50; temp_link++)
+				for (unsigned int temp_link = total_links; temp_link < total_links + 50; temp_link++){
 					comunidades[comm][node][temp_link].link_node = UINT_MAX;
+					comunidades[comm][node][temp_link].link_comunity = UINT_MAX;
+				}
 				free(previo);
 				comunity_size_node_links[comm][node] = total_links + 50;
 				enlace = total_links;
@@ -446,9 +448,9 @@ int main(int argc, char* argv[])
 	print_graph_double(num_communities, comunidades, NULL, comunity_num_nodes, comunity_used_links, NULL);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	// ahora conectamos enlaces entre comunidades
-	char comm2[50];
-	char net2[50];
-	char nodes_by_comm_file[50];
+	char comm2[14+52+12+4+20+1];
+	char net2[ 16+52+10+4+20+1];// 20 is the max char for int to string
+	char nodes_by_comm_file[14+52+16+4+20+1];
 #if defined _MSC_VER
 	sprintf_s(comm2, "%s%s%s_%d.dat", folder_name, "/community_", method, myseed);
 	sprintf_s(net2, "%s%s%s_%d_0.dat", folder_name, "/network_", method, myseed);
@@ -513,7 +515,6 @@ int main(int argc, char* argv[])
 		if (unnormalized == false)
 			normaliza_pesos_salida(num_communities, comunidades, comunidades_otra, comunity_num_nodes, comunity_size_node_links, comunity_size_node_links_otra);
 		print_graph_double(num_communities, comunidades, comunidades_otra, comunity_num_nodes, comunity_used_links, comunity_size_node_links_otra);
-
 
 #if defined _MSC_VER
 		sprintf_s(comm2, "%s%s%s_%d.dat", folder_name, "/community_", method, myseed);

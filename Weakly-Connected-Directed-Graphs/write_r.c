@@ -128,25 +128,32 @@ int write_r_file(const unsigned int num_comunities,
 	 for (comm = 0; comm < num_comunities; comm++) {
 		 acumulado_id[comm] = (comm == 0) ? 0 : acumulado_id[comm - 1] + comunity_num_nodes[comm - 1];
 	 }
-	 for (int comm_src = 0; comm_src < num_comunities; comm_src++) {
-		 for (int node_src = 0; node_src < comunity_num_nodes[comm_src]; node_src++) {
+	 for (unsigned int comm_src = 0; comm_src < num_comunities; comm_src++) {
+		 for (unsigned int node_src = 0; node_src < comunity_num_nodes[comm_src]; node_src++) {
 			 if (comunidades != NULL) 
-			 for (int temp_link = 0; temp_link < comunity_size_node_links[comm_src][node_src]; temp_link++) {
+			 for (unsigned int temp_link = 0; temp_link < comunity_size_node_links[comm_src][node_src]; temp_link++) {
 				 if (comunidades[comm_src][node_src][temp_link].link_node != UINT_MAX
 					 ||
 					 comunidades[comm_src][node_src][temp_link].link_comunity != UINT_MAX) {
-					 printf("ORIG %d[%d]->%d[%d] %f (%d) ==> %d=%d\n", node_src, comm_src,
+					if(comunidades[comm_src][node_src][temp_link].link_comunity>= num_comunities){
+						printf("Error comm_src %d node_src %d temp_link %d\n", comm_src, node_src, temp_link);fflush(stdout);
+						printf("comunidades[comm_src][node_src][temp_link].link_comunity>= num_comunities\n");
+						printf("link_comunity %d >= %d\n",comunidades[comm_src][node_src][temp_link].link_comunity, num_comunities);
+						printf("link_node %d\n",comunidades[comm_src][node_src][temp_link].link_node);
+						fflush(stdout);exit(1);
+					}
+					printf("ORIG %d[%d]->%d[%d] %f (%d)", node_src, comm_src,
 					 	comunidades[comm_src][node_src][temp_link].link_node,
 					 	comunidades[comm_src][node_src][temp_link].link_comunity,
 					 	comunidades[comm_src][node_src][temp_link].link_weight_out,
-					 	temp_link,
-						 1 + node_src + acumulado_id[comm_src],
+					 	temp_link);
+					printf(" ==> %d=%d\n", 1 + node_src + acumulado_id[comm_src],
 						 1 + comunidades[comm_src][node_src][temp_link].link_node + acumulado_id[comunidades[comm_src][node_src][temp_link].link_comunity]);
-				 }
+				}
 			 }
 			 if (comunidades_otra != NULL) 
 			 //int comm_external_links_this = comm_external_links[comm_src];				
-			 for (int temp_link = 0; temp_link < comunity_size_node_links_otra[comm_src][node_src]; temp_link++) {
+			 for (unsigned int temp_link = 0; temp_link < comunity_size_node_links_otra[comm_src][node_src]; temp_link++) {
 				 if (comunidades_otra[comm_src][node_src][temp_link].link_node != UINT_MAX
 					 ||
 					 comunidades_otra[comm_src][node_src][temp_link].link_comunity != UINT_MAX) {
@@ -157,7 +164,6 @@ int write_r_file(const unsigned int num_comunities,
 					 	temp_link,
 						 1 + node_src + acumulado_id[comm_src],
 						 1 + comunidades_otra[comm_src][node_src][temp_link].link_node + acumulado_id[comunidades_otra[comm_src][node_src][temp_link].link_comunity]);
-					 
 				 }
 			 }
 			 printf("\n");
